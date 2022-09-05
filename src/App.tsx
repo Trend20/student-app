@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
-function App() {
+interface AppName{
+  name: string
+}
+
+export interface Address{
+    houseNo: number;
+    street: string;
+    Town: string;
+}
+
+export interface Student{
+  name: string;
+  surname: string;
+  age?: number;
+  address?: Address
+}
+
+const App:React.FC<AppName> = ({ name }) =>{
+  const [student, setStudent] = useState<Student | null>(null)
+
+  const addStudent = () => {
+    setStudent({
+      name: 'Antony',
+      surname: 'Ndungu',
+      age: 20
+    })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{name}</h1>
+      <p><b>{student?.name} {student?.surname}</b></p>
+      <button onClick={addStudent}>Add Student</button>
     </div>
   );
 }
